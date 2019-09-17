@@ -28,7 +28,7 @@ export default class index extends Component {
   componentDidMount() {
     this.setState({loading: true});
     unsplash.search
-      .users('s', 1, 50)
+      .users('a', 1, 50)
       .then(toJson)
       .then(data => {
         this.setState({images: data.results, loading: false});
@@ -44,6 +44,9 @@ export default class index extends Component {
 
   //API CALL WITH SEARCH PARAMETER(ENTERED BY USER)
   performSearch = text => {
+    if (text === '') {
+      text = 'a';
+    }
     unsplash.search
       .users(text, 1, 10)
       .then(toJson)
@@ -69,27 +72,41 @@ export default class index extends Component {
           <ActivityIndicator size="large" animating={true} />
         ) : null}
 
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{marginHorizontal: 5}}
-          data={images}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              style={styles.list_item}
-              onPress={() => Actions.detail({item: item})}>
-              <View>
-                <Image
-                  source={{uri: item.profile_image.large}}
-                  style={styles.imageUser}
-                />
-              </View>
-              <View style={{flexDirection: 'row', padding: 20}}>
-                <Text style={styles.username}>{item.username}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          keyExtractor={item => item.id}
-        />
+        {images.length <= 0 && !this.state.loading ? (
+          <View
+            style={{
+              flexDirection: 'row',
+              padding: 20,
+              flex: 1,
+              justifyContent: 'center',
+            }}>
+            <Text style={{textAlign: 'center', fontSize: 20}}>
+              No User Found
+            </Text>
+          </View>
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{marginHorizontal: 5}}
+            data={images}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                style={styles.list_item}
+                onPress={() => Actions.detail({item: item})}>
+                <View>
+                  <Image
+                    source={{uri: item.profile_image.large}}
+                    style={styles.imageUser}
+                  />
+                </View>
+                <View style={{flexDirection: 'row', padding: 20}}>
+                  <Text style={styles.username}>{item.username}</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            keyExtractor={item => item.id}
+          />
+        )}
       </View>
     );
   }

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/acquaint/Desktop/UnsplashTest/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "outputFile": "/home/acquaint/Desktop/RNProject/UnsplashTest/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
                     "source": "/home/acquaint/.gradle/caches/transforms-2/files-2.1/a044f76539c325255c1027c12fb0ce2e/res/values-sw600dp-v13/values-sw600dp-v13.xml",

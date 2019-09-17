@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/acquaint/Desktop/UnsplashTest/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es/values-es.xml",
+            "outputFile": "/home/acquaint/Desktop/RNProject/UnsplashTest/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es/values-es.xml",
             "map": [
                 {
                     "source": "/home/acquaint/.gradle/caches/transforms-2/files-2.1/2cd9ea762a7e7dc5be543a6a19c7d2b1/res/values-es/values-es.xml",

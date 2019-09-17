@@ -14,40 +14,43 @@ export default class index extends Component {
     super(props);
     this.state = {
       image_index: 0,
+      image_data: [],
     };
-
-    this.image_data = [];
   }
 
   //CREATE ARRAY OF PHOTOS FOR SWIPE GALLERY
-  componentWillMount() {
-    this.setState({image_index: 1});
+  componentDidMount() {
+    // this.setState({image_index: 1});
+    let imageArray = [];
     for (let data of this.props.imagesArr) {
       let obj = {
         source: {
-          uri: data.urls.thumb,
+          uri: data.urls.regular,
         },
         dimensions: {
           width: data.width,
           height: data.height,
         },
-        thumbnail: data.urls.thumb,
+        thumbnail: data.urls.regular,
         id: idGenerator(),
       };
-      this.image_data.push(obj);
+      imageArray.push(obj);
     }
+    this.setState({image_data: imageArray});
   }
 
   render() {
     return (
       <View style={{flex: 1}}>
-        <GallerySwiper
-          initialPage={this.state.image_index}
-          images={this.image_data}
-          onPageSelected={index => this.setState({image_index: index})}
-          loadMinimal={true}
-          loadMinimalSize={2}
-        />
+        {this.state.image_data.length > 10 && (
+          <GallerySwiper
+            initialPage={this.props.index}
+            images={this.state.image_data}
+            onPageSelected={index => this.setState({image_index: index})}
+            loadMinimal={true}
+            initialNumToRender={this.state.image_data.length}
+          />
+        )}
       </View>
     );
   }

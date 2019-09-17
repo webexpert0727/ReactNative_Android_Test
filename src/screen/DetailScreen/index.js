@@ -29,6 +29,7 @@ export default class Detail extends Component {
       .photos(this.props.item.username, 1, 100)
       .then(toJson)
       .then(json => {
+        console.log(json);
         this.setState({GalleryItemArray: json});
       });
   };
@@ -48,28 +49,42 @@ export default class Detail extends Component {
             </Text>
           </View>
           <View>
-            <FlatList
-              data={this.state.GalleryItemArray}
-              extraData={this.state}
-              renderItem={({item, index}) => (
-                <TouchableOpacity
-                  style={styles.btnContainer}
-                  onPress={() =>
-                    Actions.swiper({
-                      item: item,
-                      index: index,
-                      imagesArr: this.state.GalleryItemArray,
-                    })
-                  }>
-                  <Image
-                    source={{uri: item.urls.thumb}}
-                    style={[styles.btnContainer]}
-                  />
-                </TouchableOpacity>
-              )}
-              keyExtractor={(item, index) => item.id}
-              numColumns={2}
-            />
+            {this.state.GalleryItemArray.length <= 0 && !this.state.loading ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  padding: 20,
+                  flex: 1,
+                  justifyContent: 'center',
+                }}>
+                <Text style={{textAlign: 'center', fontSize: 20}}>
+                  No Photo Found
+                </Text>
+              </View>
+            ) : (
+              <FlatList
+                data={this.state.GalleryItemArray}
+                extraData={this.state}
+                renderItem={({item, index}) => (
+                  <TouchableOpacity
+                    style={styles.btnContainer}
+                    onPress={() =>
+                      Actions.swiper({
+                        item: item,
+                        index: index,
+                        imagesArr: this.state.GalleryItemArray,
+                      })
+                    }>
+                    <Image
+                      source={{uri: item.urls.thumb}}
+                      style={[styles.btnContainer]}
+                    />
+                  </TouchableOpacity>
+                )}
+                keyExtractor={(item, index) => item.id}
+                numColumns={2}
+              />
+            )}
           </View>
         </ScrollView>
       </View>
